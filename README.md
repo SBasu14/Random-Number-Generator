@@ -127,9 +127,7 @@ This repository demonstrates two distinct approaches to generating random number
 
 <p align="left">
   <img src="Random_Number_Generator/R1.png" alt="Project Preview" width="400">
-</p>
-
-<p align="right">
+ align="right">
   <img src="Random_Number_Generator/R2.png" alt="Project Preview" width="400">
 </p>
 
