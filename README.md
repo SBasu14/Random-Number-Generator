@@ -134,3 +134,17 @@ This repository demonstrates two distinct approaches to generating random number
   <img src="Random_Number_Generator/R3.png" alt="Project Preview" width="400">
 </p>
 
+## ⚖️ Comparison
+
+| Feature | IoT Method (NodeMCU-32) | Web Application |
+|---------|------------------------|-----------------|
+| **Setup Time** | Moderate (hardware + code) | Instant (open file) |
+| **Portability** | Requires hardware | Any device with browser |
+| **Internet Required** | Yes (for cloud features) | No |
+| **Data Logging** | Yes (cloud integration) | No (browser-based) |
+| **Automation** | Yes | Manual |
+| **Cost** | ~$5-15 (hardware) | Free |
+| **Best For** | IoT projects, automation | Quick access, no hardware |
+| **Scalability** | Multiple devices possible | Single user session |
+| **True RNG** | Yes (hardware-based) | Pseudo-random |
+| **Connectivity** | WiFi + Bluetooth | Browser only |
