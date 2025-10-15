@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .settings {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .quantity-group {
+            margin-top: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s;
+        }
+
+        .result-label {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .result-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: white;
+            animation: scaleIn 0.5s;
+        }
+
+        .result-list {
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.5);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .error {
+            color: #f5576c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎲 Random Number Generator</h1>
+        
+        <div class="input-group">
+            <label for="minNum">Minimum Number:</label>
+            <input type="number" id="minNum" value="1">
+        </div>
+
+        <div class="input-group">
+            <label for="maxNum">Maximum Number:</label>
+            <input type="number" id="maxNum" value="100">
+        </div>
+
+        <div class="settings">
+            <div class="checkbox-group">
+                <input type="checkbox" id="allowDecimals">
+                <label for="allowDecimals">Allow Decimal Numbers</label>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="multipleNumbers">
+                <label for="multipleNumbers">Generate Multiple Numbers</label>
+            </div>
+
+            <div class="quantity-group hidden" id="quantityGroup">
+                <label for="quantity">How many numbers?</label>
+                <input type="number" id="quantity" value="5" min="1" max="100">
+            </div>
+
+            <div class="checkbox-group" id="uniqueGroup" style="display: none;">
+                <input type="checkbox" id="uniqueNumbers" checked>
+                <label for="uniqueNumbers">Unique Numbers Only</label>
+            </div>
+        </div>
+
+        <div class="error" id="error"></div>
+
+        <button onclick="generateNumber()">Generate</button>
+
+        <div class="result hidden" id="result">
+            <div class="result-label">Your Random Number:</div>
+            <div class="result-number" id="output"></div>
+        </div>
+    </div>
+
+    <script>
+        const multipleCheckbox = document.getElementById('multipleNumbers');
+        const quantityGroup = document.getElementById('quantityGroup');
+        const uniqueGroup = document.getElementById('uniqueGroup');
+
+        multipleCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                quantityGroup.classList.remove('hidden');
+                uniqueGroup.style.display = 'flex';
+            } else {
+                quantityGroup.classList.add('hidden');
+                uniqueGroup.style.display = 'none';
+            }
+        });
+
+        function generateNumber() {
+            const min = parseFloat(document.getElementById('minNum').value);
+            const max = parseFloat(document.getElementById('maxNum').value);
+            const allowDecimals = document.getElementById('allowDecimals').checked;
+            const multiple = document.getElementById('multipleNumbers').checked;
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const unique = document.getElementById('uniqueNumbers').checked;
+            const errorDiv = document.getElementById('error');
+            const resultDiv = document.getElementById('result');
+            const output = document.getElementById('output');
+
+            errorDiv.classList.remove('show');
+
+            if (isNaN(min) || isNaN(max)) {
+                errorDiv.textContent = 'Please enter valid numbers!';
+                errorDiv.classList.add('show');
+                return;
+            }
+
+            if (min >= max) {
+                errorDiv.textContent = 'Minimum must be less than maximum!';
+                errorDiv.classList.add('show');
+                return;
+            }
+
+            if (multiple) {
+                if (quantity < 1 || quantity > 100) {
+                    errorDiv.textContent = 'Quantity must be between 1 and 100!';
+                    errorDiv.classList.add('show');
+                    return;
+                }
+
+                if (unique && !allowDecimals && quantity > (max - min + 1)) {
+                    errorDiv.textContent = 'Not enough unique numbers in range!';
+                    errorDiv.classList.add('show');
+                    return;
+                }
+
+                const numbers = [];
+                const usedNumbers = new Set();
+
+                for (let i = 0; i < quantity; i++) {
+                    let num;
+                    let attempts = 0;
+                    do {
+                        if (allowDecimals) {
+                            num = Math.random() * (max - min) + min;
+                            num = Math.round(num * 100) / 100;
+                        } else {
+                            num = Math.floor(Math.random() * (max - min + 1)) + min;
+                        }
+                        attempts++;
+                        if (attempts > 1000) break;
+                    } while (unique && usedNumbers.has(num));
+
+                    usedNumbers.add(num);
+                    numbers.push(num);
+                }
+
+                output.className = 'result-list';
+                output.textContent = numbers.join(', ');
+            } else {
+                let randomNum;
+                if (allowDecimals) {
+                    randomNum = Math.random() * (max - min) + min;
+                    randomNum = Math.round(randomNum * 100) / 100;
+                } else {
+                    randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+
+                output.className = 'result-number';
+                output.textContent = randomNum;
+            }
+
+            resultDiv.classList.remove('hidden');
+        }
+
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    generateNumber();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
