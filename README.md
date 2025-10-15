@@ -130,7 +130,7 @@ This repository demonstrates two distinct approaches to generating random number
   <img src="Random_Number_Generator/R2.png" alt="Project Preview" width="400">
 </p>
 
-<p align="center">
+<p align="left">
   <img src="Random_Number_Generator/R3.png" alt="Project Preview" width="400">
 </p>
 
