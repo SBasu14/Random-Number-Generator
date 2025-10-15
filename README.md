@@ -146,5 +146,75 @@ This repository demonstrates two distinct approaches to generating random number
 | **Cost** | ~$5-15 (hardware) | Free |
 | **Best For** | IoT projects, automation | Quick access, no hardware |
 | **Scalability** | Multiple devices possible | Single user session |
-| **True RNG** | Yes (hardware-based) | Pseudo-random |
 | **Connectivity** | WiFi + Bluetooth | Browser only |
+
+
+## 🚀 Getting Started
+
+### For IoT Method:
+```bash
+# Clone the repository
+git clone https://github.com/SBasu14/Random-Number-Generator.git
+
+# Navigate to IoT method folder
+cd Random-Number-Generator/IoT-Method
+
+# Open the .ino file in Arduino IDE and upload
+```
+
+### For Web Application:
+```bash
+# Clone the repository
+git clone https://github.com/SBasu14/Random-Number-Generator.git
+
+# Navigate to web application folder
+cd Random-Number-Generator/Web-Application
+
+# Open random_number_gen.html in your browser
+```
+
+Or simply download `random_number_gen.html` and open it directly!
+
+## 🤝 Contributing
+
+Contributions are welcome! Here are some ways you can help:
+
+- Add new random number generation algorithms
+- Improve the web UI/UX
+- Add more IoT platform integrations
+- Create mobile app versions
+- Improve documentation
+- Report bugs
+
+### How to Contribute:
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/NewFeature`)
+3. Commit your changes (`git commit -m 'Add some NewFeature'`)
+4. Push to the branch (`git push origin feature/NewFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+The ESP8266WiFi library components are licensed under the GNU Lesser General Public License v2.1. ESP32 components are licensed under Apache 2.0.
+
+## 👤 Author
+
+**Samadrita**
+- GitHub: [@SBasu14](https://github.com/SBasu14)
+- samabasu14@gmail.com
+
+## 📊 Project Statistics
+
+- **Methods:** 2 (IoT + Web)
+- **Languages:** C/C++, HTML, CSS, JavaScript
+- **Hardware:** NodeMCU-32 (ESP32)
+- **Platforms:** ESP32, Web Browser
+- **Status:** Active Development
+---
+
+### ⭐ If you find this project useful, please star this repository!
+
+**All contributuions and feedbacks are welcome!**
+
